@@ -5,7 +5,6 @@ import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +22,7 @@ public class MyDataSourceEndpoint {
 
     @ReadOperation
     public Map<String, Object> pool() {
-        GenericObjectPool<Connection> pool = dataSource.getPool();
+        GenericObjectPool<MyConnection> pool = dataSource.getPool();
         HashMap<String, Object> map = new HashMap<>();
         map.put("numActive", pool.getNumActive());
         map.put("numIdle", pool.getNumIdle());

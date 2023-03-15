@@ -15,14 +15,16 @@ import java.util.logging.Logger;
  * @date 2023年03月14日 22:53
  */
 public class MyDataSource implements DataSource {
-    public GenericObjectPool<Connection> getPool() {
+    private GenericObjectPool<MyConnection> pool;
+
+    public GenericObjectPool<MyConnection> getPool() {
         return pool;
     }
 
-    private GenericObjectPool<Connection> pool;
-
     public MyDataSource() {
-        this.pool = new GenericObjectPool<>(new ConnectionPooledObjectFactory());
+        ConnectionPooledObjectFactory factory = new ConnectionPooledObjectFactory();
+        this.pool = new GenericObjectPool<>(factory);
+        factory.setObjectPool(pool);
     }
 
     /**
